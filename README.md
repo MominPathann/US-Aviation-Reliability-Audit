@@ -10,6 +10,10 @@ Unlike standard dashboards that track "delays," this system quantifies the **fin
 ### 📊 Live Dashboard
 **[Insert Link to Live Power BI Report Here]**
 
+### 📊 Dashboard Access
+**[⬇️ Download the .pbix File (371MB) via Google Drive](INSERT_YOUR_GOOGLE_DRIVE_LINK_HERE)**
+*Note: This file contains the full 7M row dataset. Performance may vary based on local machine specs.*
+
 ---
 
 ### 🎯 The Business Problem
