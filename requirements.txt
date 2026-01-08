@@ -3,3 +3,4 @@ numpy
 pyarrow
 requests
 urllib3
+duckdb
