@@ -11,8 +11,8 @@ In the US National Airspace System (NAS), maintenance-related delays account for
 ![Project Cover](assets/01_project_cover.jpg)
 
 ### 🔗 Dashboard Access
-* **[📊 View Live Power BI Report](INSERT_YOUR_PUBLISHED_LINK_HERE)**
-* **[⬇️ Download .pbix File (371MB)]([(https://drive.google.com/file/d/1VMey_y2X5pcrJPq5PjTLREozzNt3DRZx/view?usp=sharing)])**
+* **[📊 View Live Power BI Report](https://app.powerbi.com/view?r=eyJrIjoiYmNkNDA0NjEtMDUxNi00ODdmLTllMjUtMjBiZGI3NTlkZTZiIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
+* **[⬇️ Download .pbix File (371MB)](https://drive.google.com/file/d/1VMey_y2X5pcrJPq5PjTLREozzNt3DRZx/view?usp=sharing)**
     * *Note: Hosted on Google Drive due to GitHub file size limits.*
 
 ---
@@ -55,5 +55,10 @@ Forensic-level detail allowing stakeholders to investigate specific tail numbers
 3.  **Geographic Risk:** Financial liability is not evenly distributed; it clusters heavily in specific hub states, correlating with older fleet allocations.
 
 ---
-*Author: Momin Khan | Data Analyst & Aviation Domain Expert*
+---
+### 👤 Author
+**Momin Khan**
+*Data Analyst & Aviation Domain Expert*
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](INSERT_YOUR_LINKEDIN_URL_HERE)
+
 *Data Source: Bureau of Transportation Statistics (BTS) & FAA Aircraft Registry*
