@@ -55,10 +55,8 @@ Forensic-level detail allowing stakeholders to investigate specific tail numbers
 3.  **Geographic Risk:** Financial liability is not evenly distributed; it clusters heavily in specific hub states, correlating with older fleet allocations.
 
 ---
----
-### 👤 Author
-**Momin Khan**
-*Data Analyst & Aviation Domain Expert*
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](INSERT_YOUR_LINKEDIN_URL_HERE)
+### 🔗 👤 Author
+
+**Momin Khan** *Data Analyst & Aviation Domain Expert* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/mominpathann/)
 
 *Data Source: Bureau of Transportation Statistics (BTS) & FAA Aircraft Registry*
