@@ -76,7 +76,13 @@ In the US National Airspace System (NAS), maintenance-related delays account for
 * **Data Modeling:** Designed a Star Schema comprising 1 Fact Table (7M+ rows) and 3 Dimension Tables (Airlines, Geo, Master).
 * **Performance Optimization:** Replaced legacy text-based composite keys with a numeric Surrogate Key (`Flight_ID`), reducing Power BI model size and improving refresh speeds by ~40%.
 * **Visualization:** Microsoft Power BI with Figma-integrated background layouts for executive-level UI.
+## 2. Technical Architecture & Data Model
+The project relies on a rigorously designed **Star Schema** to optimize the VertiPaq engine's performance.
+* **Fact Table:** `Fact_Flights` (7.07M rows) containing transactional flight data and foreign keys.
+* **Dimension Tables:** Optimized lookup tables for Airlines, Geography (Origin/Dest), and the FAA Master Registry.
+* **Asset Audit Logic:** The `Master_Dim` is connected via `Tail_Number` (N-Number) to flag unregistered "Ghost Aircraft."
 
+![Data Model Schema](assets/image_31fc4a.png)
 ## 3. Key Features
 ### A. The "Asset Risk Audit" Engine
 * **Logic:** A scatter plot analyzing **Total Maintenance Liability vs. Delay Impact**.
