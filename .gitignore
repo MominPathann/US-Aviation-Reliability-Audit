@@ -1,11 +1,16 @@
-# Ignore Data Files
+# Ignore Data Files (Too big for GitHub)
 *.zip
 *.csv
 *.parquet
-*.pbix
 *.txt
+*.pbix
 
-# Ignore Python Cache
+# Ignore Folders
+data_raw/
+data_processed/
 __pycache__/
-*.pyc
-.ipynb_checkpoints
+.ipynb_checkpoints/
+
+# Ignore System Files
+.DS_Store
+Thumbs.db
