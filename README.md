@@ -8,7 +8,7 @@ In the US National Airspace System (NAS), maintenance-related delays account for
 **The Strategic Objective:** To move beyond descriptive "On-Time Performance" metrics and financially quantify the exact liability created by maintenance inefficiencies.
 **The Scope:** Auditing **$4.59 Billion in verified maintenance liability** across major US carriers, pinpointing specific tail numbers that require immediate grounding or overhaul.
 
-![Project Cover](assets/01_project_cover.jpg)
+![Project Cover](assets/01_project_cover.png)
 
 ### 🔗 Live Architecture Access
 * **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiMzFmMDY5Y2MtNjM0NS00OTllLWEzNWYtNGI0NWIzODk4NWJlIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
