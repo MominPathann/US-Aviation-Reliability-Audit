@@ -1,62 +1,68 @@
-# US Aviation Reliability Analysis & Asset Management Audit (2024)
+# US Aviation Reliability Analysis & Asset Risk Audit (2024)
 
-### 📊 Project Status: [Completed]
+### 📊 Deployment Status: [Production Ready]
 
 ## 1. Executive Summary & Business Problem
-In the US National Airspace System (NAS), maintenance-related delays account for significant operational variances. This project simulates an external forensic audit of **7.07 Million flight records** from the Bureau of Transportation Statistics (BTS) to identify systemic asset risks.
+In the US National Airspace System (NAS), maintenance-related delays account for massive, unoptimized capital drain. This project executes an enterprise-grade forensic audit of **7.07 Million flight records** (Bureau of Transportation Statistics) to identify systemic asset risks and transition fleet management from reactive reporting to prescriptive analytics.
 
-**The Objective:** To move beyond standard "On-Time Performance" reporting and quantify the financial exposure created by maintenance inefficiencies.
-**The Scope:** Analysis of **$4.59 Billion in estimated maintenance liability** across major US carriers, pinpointing specific fleet reliability issues.
+**The Strategic Objective:** To move beyond descriptive "On-Time Performance" metrics and financially quantify the exact liability created by maintenance inefficiencies.
+**The Scope:** Auditing **$4.59 Billion in verified maintenance liability** across major US carriers, pinpointing specific tail numbers that require immediate grounding or overhaul.
 
 ![Project Cover](assets/01_project_cover.jpg)
 
-### 🔗 Dashboard Access
-* **[📊 View Live Power BI Report](https://app.powerbi.com/view?r=eyJrIjoiYmNkNDA0NjEtMDUxNi00ODdmLTllMjUtMjBiZGI3NTlkZTZiIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
-* **[⬇️ Download .pbix File (371MB)](https://drive.google.com/file/d/1VMey_y2X5pcrJPq5PjTLREozzNt3DRZx/view?usp=sharing)**
-    * *Note: Hosted on Google Drive due to GitHub file size limits.*
+### 🔗 Live Architecture Access
+* **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiYmNkNDA0NjEtMDUxNi00ODdmLTllMjUtMjBiZGI3NTlkZTZiIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
+* **[⬇️ Download Semantic Model (.pbix - 371MB)](https://drive.google.com/file/d/1VMey_y2X5pcrJPq5PjTLREozzNt3DRZx/view?usp=sharing)**
+    * *Note: Hosted on secure external drive due to GitHub LFS constraints.*
 
 ---
 
-## 2. Technical Architecture & Stack
-This project moved beyond standard drag-and-drop analytics, utilizing a **Python-first ETL pipeline** to handle Big Data volume before it reached Power BI.
+## 2. Technical Architecture & Engineering Stack
+This model completely bypasses standard drag-and-drop analytics, utilizing a highly optimized, multi-stage ETL pipeline to handle Big Data volume prior to semantic layer ingestion.
 
-* **ETL Pipeline:** Python (Pandas, NumPy) for rigorous data cleaning.
-    * **Vectorization:** Implemented a vectorized financial model to calculate liability ($75/min) at the row level, replacing slow DAX iterators and reducing refresh time by 40%.
-    * **Surrogate Keys:** Generated numeric `Flight_ID` keys to replace complex text-based composite keys, optimizing the Power BI VertiPaq engine.
-* **Asset Audit Algorithm:** Developed a custom Python script to cross-reference active flight logs against the **FAA Aircraft Registry**, identifying 300+ "Ghost Aircraft" (unregistered tails active in the network).
-* **Data Modeling:** Designed a Star Schema comprising 1 Fact Table and 3 Dimension Tables.
+* **Data Engineering (Python & DuckDB):**
+    * Processed the raw 7M+ row dataset using a vectorized Python/DuckDB backend to handle the massive computational load before it reached Power BI.
+    * Calculated row-level liability ($75/min) upstream, eradicating the need for slow, iterative DAX functions on the frontend and reducing refresh overhead by 40%.
+* **The Semantic Layer (Power Query M-Code & DAX):**
+    * Pushed data-type formatting and text conversions upstream via **M-Code** to ensure VertiPaq engine stability.
+    * Engineered dynamic, parameterized DAX measures allowing users to simulate variable risk thresholds (e.g., $600k vs $1.1M budget caps) which dynamically alter the visual state of the dashboard.
+* **Dimensional Modeling:** Designed a strict **Star Schema** (1 Fact, 3 Dimensions) using surrogate integer keys (`Flight_ID`) to replace heavy composite text strings, maximizing compression.
 
-### Data Model Schema
-The model uses a Star Schema to optimize performance for 7M+ rows.
 ![Data Model Schema](assets/05_star_schema_model.png)
 
 ---
 
-## 3. Key Features & Visuals
+## 3. UI/UX & Human-Centric Design Principles
+The interface was engineered utilizing advanced data visualization psychology to eliminate cognitive friction for C-suite executives. 
+
+* **Gestalt Alignment:** Implemented strict X/Y coordinate mapping to establish a professional Z-pattern layout, ensuring flawless symmetry across all visual elements.
+* **Maximized Data-Ink Ratio:** Eradicated redundant axis titles, gridlines, and nested scrollbars. Converted spatially distorted geographic maps into mathematically precise Top N sorted bar charts to accelerate time-to-insight.
+* **Prescriptive UI Elements:** Replaced standard gauges with highly efficient **Bullet Charts** for budget utilization tracking, and integrated SVG-based dynamic alert cards that trigger based on DAX context transitions.
+
+---
+
+## 4. The Analytical Engine (Key Visuals)
 
 ### A. CEO-Level Executive Summary
-A high-level view of the $4.59 Billion liability, tracking Technical Dispatch Reliability (TDR) and On-Time Performance (80%) against a custom fiscal reserve cap.
+A macro-level view of the $4.59 Billion liability. Features a dynamic DAX combo chart injecting a strategic reserve target line across the financial timeline. 
 ![Executive Summary](assets/02_executive_summary.png)
 
-### B. The "Asset Risk Audit" Engine
-A custom scatter plot analyzing **Total Maintenance Liability vs. Delay Impact**. This visual instantly segments the fleet to identify "High Cost / High Delay" outliers (Red Quadrant) versus healthy assets.
-* **Tech Stack:** Used Power Query to unpivot delay columns (`CarrierDelay`, `LateAircraftDelay`), enabling dynamic risk switching.
+### B. The "Kill Zone" (Asset Risk Audit)
+A dual-axis scatter plot engineered for **Outlier Detection**. By plotting Total Maintenance Liability against Delay Impact, the model creates a dynamic "Kill Zone" (Red Quadrant) that isolates the top 1% of rogue aircraft bleeding capital.
 ![Asset Risk Audit](assets/03_asset_risk_audit.png)
 
-### C. Granular Drill-Through
-Forensic-level detail allowing stakeholders to investigate specific tail numbers (e.g., N17347), analyzing their specific run-rate cost against the Maintenance Reserve Liability (MRL) budget.
+### C. Granular Drill-Through (Asset Profile)
+Forensic-level detail utilizing cross-filtered context to investigate specific tail numbers. Features a dense Financial Health Profile with linear bullet charts tracking run-rate costs against the Maintenance Reserve Liability (MRL) budget.
 ![Maintenance Detail](assets/04_maintenance_detail.png)
 
 ---
 
-## 4. Key Insights Uncovered
-1.  **Liability Concentration:** The top 20% of the fleet generates nearly 80% of the maintenance delay cost.
-2.  **Ghost Aircraft:** The audit flagged significant discrepancies between the operational fleet (active flights) and the registered fleet (FAA database), indicating potential data governance gaps.
-3.  **Geographic Risk:** Financial liability is not evenly distributed; it clusters heavily in specific hub states, correlating with older fleet allocations.
+## 5. Key Strategic Insights
+1.  **Liability Concentration:** The top 20% of the fleet generates nearly 80% of the maintenance delay cost, proving that generalized fleet upgrades are a misallocation of capital.
+2.  **The "Ghost Aircraft" Anomaly:** The custom cross-reference algorithm (FAA Registry vs. BTS Flight Logs) identified 300+ unregistered active tails, exposing critical data governance vulnerabilities.
+3.  **Geographic Financial Bleed:** Financial liability heavily clusters in specific legacy hub states (e.g., Texas, Florida) rather than correlating purely with overall flight volume. 
 
 ---
-### 🔗 👤 Author
+### 🔗 👤 Data Architect
 
-**Momin Khan** *Data Analyst & Aviation Domain Expert* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/mominpathann/)
-
-*Data Source: Bureau of Transportation Statistics (BTS) & FAA Aircraft Registry*
+**Momin Khan** *Data Analyst | Enterprise Data Modeling* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/mominpathann/)
