@@ -22,11 +22,11 @@ This model completely bypasses standard drag-and-drop analytics, utilizing a hig
 
 * **Data Engineering (Python & DuckDB):**
     * Processed the raw 7M+ row dataset using a vectorized Python/DuckDB backend to handle the massive computational load before it reached Power BI.
-    * Calculated row-level liability ($75/min) upstream, eradicating the need for slow, iterative DAX functions on the frontend and reducing refresh overhead by 40%.
+    * Calculated row-level liability ($75/min) upstream, minimizing the reliance on heavy frontend iterators and reserving complex DAX exclusively for dynamic baseline comparisons.
 * **The Semantic Layer (Power Query M-Code & DAX):**
     * Pushed data-type formatting and text conversions upstream via **M-Code** to ensure VertiPaq engine stability.
     * Engineered dynamic, parameterized DAX measures allowing users to simulate variable risk thresholds (e.g., $600k vs $1.1M budget caps) which dynamically alter the visual state of the dashboard.
-* **Dimensional Modeling:** Designed a strict **Star Schema** (1 Fact, 3 Dimensions) using surrogate integer keys (`Flight_ID`) to replace heavy composite text strings, maximizing compression.
+* **Dimensional Modeling:** Designed a highly optimized **Fact Constellation Schema** (2 Fact Tables, 3 Dimensions) using surrogate integer keys (`Flight_ID`) to replace heavy composite text strings, maximizing compression.
 
 ![Data Model Schema](assets/05_star_schema_model.png)
 
@@ -58,9 +58,9 @@ Forensic-level detail utilizing cross-filtered context to investigate specific t
 ---
 
 ## 5. Key Strategic Insights
-1.  **Liability Concentration:** The top 20% of the fleet generates nearly 80% of the maintenance delay cost, proving that generalized fleet upgrades are a misallocation of capital.
-2.  **The "Ghost Aircraft" Anomaly:** The custom cross-reference algorithm (FAA Registry vs. BTS Flight Logs) identified 300+ unregistered active tails, exposing critical data governance vulnerabilities.
-3.  **Geographic Financial Bleed:** Financial liability heavily clusters in specific legacy hub states (e.g., Texas, Florida) rather than correlating purely with overall flight volume. 
+1. **Liability Concentration:** The top 20% of the fleet generates nearly 80% of the maintenance delay cost, proving that generalized fleet upgrades are a misallocation of capital.
+2. **The "Ghost Aircraft" Anomaly:** A cross-reference delta calculation between the FAA Registry and BTS Flight Logs identified 300+ unregistered active tails, exposing critical data governance vulnerabilities.
+3. **Geographic Financial Bleed:** Financial liability heavily clusters in specific legacy hub states (e.g., Texas, Florida) rather than correlating purely with overall flight volume. 
 
 ---
 ### 🔗 👤 Data Architect
