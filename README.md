@@ -11,7 +11,7 @@ In the US National Airspace System (NAS), maintenance-related delays account for
 ![Project Cover](assets/01_project_cover.jpg)
 
 ### 🔗 Live Architecture Access
-* **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiYmNkNDA0NjEtMDUxNi00ODdmLTllMjUtMjBiZGI3NTlkZTZiIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
+* **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiYmRmYWQ2YWMtNGI0Ny00NzM4LTg5OGMtZDk2YTBmN2QxZmIwIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
 * **[⬇️ Download Semantic Model (.pbix - 371MB)](https://drive.google.com/file/d/1VMey_y2X5pcrJPq5PjTLREozzNt3DRZx/view?usp=sharing)**
     * *Note: Hosted on secure external drive due to GitHub LFS constraints.*
 
