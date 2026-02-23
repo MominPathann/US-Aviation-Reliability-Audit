@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: US Aviation Reliability Analysis</title>
+    <style>
+        /* --- GLOBAL ENGINEERING --- */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #e2e8f0; /* Professional slate background */
+            margin: 0;
+            padding: 40px 20px;
+        }
+        
+        /* --- UNIFIED CARD: HEADER --- */
+        header {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #00205b; 
+            color: #ffffff;
+            padding: 50px 40px;
+            text-align: left;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        header h1 { margin: 0 0 10px 0; font-size: 2.8rem; color: #ffffff; line-height: 1.2;}
+        header h2 { margin: 0 0 25px 0; font-size: 1.4rem; font-weight: 400; color: #cbd5e1; border: none; padding: 0; }
+        .author-info p { margin: 5px 0; font-size: 1.1rem; color: #e2e8f0; }
+        
+        .header-links { margin-top: 25px; display: flex; gap: 20px; flex-wrap: wrap; }
+        .header-links a { color: #ffffff; text-decoration: underline; font-weight: bold; font-size: 1.1rem; }
+        .header-links a:hover { color: #93c5fd; text-decoration: none; }
+
+        /* --- UNIFIED CARD: BODY CONTAINER --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* --- TYPOGRAPHY & COMPONENTS --- */
+        section h2 { color: #00205b; border-bottom: 2px solid #00205b; padding-bottom: 5px; margin-top: 40px; }
+        h3 { color: #444; margin-top: 25px; font-size: 1.3rem; }
+        p { font-size: 1.05rem; }
+        ul { padding-left: 20px; font-size: 1.05rem; }
+        li { margin-bottom: 10px; }
+        
+        .metrics-grid {
+            display: flex; justify-content: space-between; gap: 20px;
+            background-color: #f8fafc; padding: 25px; border-radius: 8px; margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .metric-card { text-align: center; flex: 1; }
+        .metric-card strong { display: block; font-size: 2.2rem; color: #00205b; line-height: 1.1; margin-bottom: 5px;}
+        
+        .portfolio-image {
+            width: 100%; height: auto; border: 1px solid #cbd5e1;
+            border-radius: 5px; margin: 25px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header { padding: 30px 20px; }
+            header h1 { font-size: 2rem; }
+            .container { padding: 20px; }
+            .metrics-grid { flex-direction: column; gap: 15px; }
+            .header-links { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>US Aviation Reliability Analysis</h1>
+        <h2>Enterprise Data Modeling & Asset Risk Management (2024)</h2>
+        
+        <div class="author-info">
+            <p><strong>Momin Khan</strong> | Data Analyst & Aviation Domain Expert</p>
+            <p>Core Stack: Python, DuckDB, Power BI, DAX, Power Query (M)</p>
+        </div>
+
+        <div class="header-links">
+            <a href="https://www.linkedin.com/in/mominpathann/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/MominPathann/US-Aviation-Reliability-Audit/tree/main" target="_blank">GitHub Repository</a>
+            <a href="https://app.powerbi.com/view?r=eyJrIjoiMzFmMDY5Y2MtNjM0NS00OTllLWEzNWYtNGI0NWIzODk4NWJlIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db" target="_blank">Live Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Executive Summary</h2>
+            <p>Engineered an enterprise-grade analytical model to audit domestic commercial flight data, isolating controllable carrier maintenance failures from uncontrollable external airspace factors. The dashboard transitions organizational focus from descriptive reporting to prescriptive asset management, identifying high-risk aircraft bleeding capital and destroying passenger experience.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card"><strong>7.07M</strong>Records Processed</div>
+                <div class="metric-card"><strong>$4.59B</strong>Maintenance Liability</div>
+                <div class="metric-card"><strong>5,911</strong>Unique Aircraft Tracked</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Architectural & Engineering Achievements</h2>
+            <h3>1. Data Pipeline & Semantic Modeling</h3>
+            <ul>
+                <li><strong>Data Engineering (Python & DuckDB):</strong> Processed the raw 7.07 million row dataset using a vectorized DuckDB backend to handle the massive computational load before it reached Power BI.</li>
+                <li><strong>Fact Constellation Schema:</strong> Designed a highly optimized dimensional model (2 Fact Tables, 3 Dimensions) utilizing surrogate integer keys to replace heavy composite text strings and maximize VertiPaq compression.</li>
+                <li><strong>Upstream Transformation:</strong> Enforced data hygiene by pushing date/time formatting and text string aliasing upstream via Power Query (M-Code), completely bypassing frontend DAX rendering limitations to ensure absolute pipeline stability.</li>
+            </ul>
+
+            <h3>2. Advanced DAX & Prescriptive Logic</h3>
+            <ul>
+                <li><strong>Dynamic Risk Thresholding:</strong> Engineered parameterized DAX measures allowing executives to input custom financial constraints (e.g., $600k threshold), instantly recalculating fleet compliance and dynamically triggering SVG-based "OVERHAUL REQUIRED" alerts on asset profiles.</li>
+                <li><strong>Outlier Detection (The "Kill Zone"):</strong> Built a dual-axis scatter plot model measuring Delay Impact vs. Financial Liability. Implemented distinct dynamic reference lines to visually isolate the top 1% of rogue aircraft requiring immediate grounding.</li>
+            </ul>
+
+            <h3>3. UI/UX & Human-Centric Design</h3>
+            <ul>
+                <li><strong>Gestalt Grid Alignment:</strong> Applied strict X/Y coordinate mapping to establish a professional, McKinsey-style Z-pattern layout, eliminating cognitive friction and ensuring seamless data navigation.</li>
+                <li><strong>Maximizing Data-Ink Ratio:</strong> Ruthlessly eliminated redundant axis titles, gridlines, and nested scrollbars. Replaced spatially distorted geographic maps with mathematically precise Top N sorted bar charts to accelerate executive time-to-insight.</li>
+                <li><strong>Bullet Chart Execution:</strong> Deployed target-based bullet charts for budget utilization tracking, avoiding spatially wasteful gauge visuals and providing linear, instantly readable variance tracking.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>The Analytical Engine</h2>
+            
+            <h3>A. CEO-Level Executive Summary</h3>
+            <p>A macro-level view of the $4.59 Billion liability. Features a dynamic DAX combo chart injecting a strategic reserve target line across the financial timeline.</p>
+            <img src="ceo-overview.png" alt="CEO Dashboard showing macro financial liability and Top 10 states" class="portfolio-image">
+
+            <h3>B. The "Kill Zone" (Asset Risk Audit)</h3>
+            <p>A dual-axis scatter plot engineered for Outlier Detection. By plotting Total Maintenance Liability against Delay Impact, the model creates a dynamic "Kill Zone" (Red Quadrant) that isolates the top 1% of rogue aircraft.</p>
+            <img src="ops-and-maintenance.png" alt="Ops and Maintenance Dashboard showing Asset Risk Scatter Plot" class="portfolio-image">
+
+            <h3>C. Granular Drill-Through (Asset Profile)</h3>
+            <p>Forensic-level detail utilizing cross-filtered context to investigate specific tail numbers. Features a dense Financial Health Profile with linear bullet charts tracking run-rate costs against the budget.</p>
+            <img src="maintenance-detail.png" alt="Maintenance Detail Dashboard showing Asset Profile and Bullet Chart" class="portfolio-image">
+        </section>
+
+        <section>
+            <h2>Business Impact</h2>
+            <p>This model shifts aviation maintenance strategy from reactive to predictive. By utilizing Top N dynamic filtering and absolute cross-filtering across the semantic model, maintenance directors can filter through billions of dollars in operational liability to find the specific Tail Number requiring immediate overhaul in under three clicks.</p>
+        </section>
+
+    </div>
+
+</body>
+</html>
