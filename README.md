@@ -91,6 +91,72 @@ RAW BTS + FAA DATA
 
 ---
 
+## The Pipeline in Code
+
+Three snippets that drove the core findings. Full source in `aviation_pipeline.py`.
+
+### 1. The Phantom Liability Fix — MRL Formula
+The formula that eliminated $17.3M in incorrectly accrued liability.
+Standard industry logic applies `$180 per cycle` uniformly to every record.
+This pipeline enforces a strict check: cancelled flights and null AirTime entries return zero cost before the formula runs.
+
+```sql
+-- Silver Layer: MRL Liability Calculation (DuckDB SQL)
+-- Formula: (AirTime / 60 × $250) + $180 per cycle
+-- Cancelled flights and null AirTime are hard-zeroed upstream
+
+CASE 
+    WHEN TRY_CAST(Cancelled AS INTEGER) = 1 
+      OR TRY_CAST(AirTime AS INTEGER) IS NULL THEN 0.0
+    ELSE ((TRY_CAST(AirTime AS INTEGER) / 60.0) * 250.0) + 180.0
+END AS MRL_Liability
+```
+
+> Without this filter: 96,315 cancelled flights each received a `$180` cycle charge.
+> Total phantom accrual: **$17,336,700** — eliminated at source.
+
+---
+
+### 2. Tail Number Standardization — Ghost Aircraft Root Cause
+The FAA registry and BTS flight logs use inconsistent tail number formats.
+Some records carry the `N` prefix; others don't.
+A raw `LEFT JOIN` on unformatted tails produced **314 null matches**.
+After applying this standardization, **187 confirmed Ghost Aircraft** remained.
+
+```sql
+-- Silver Layer: N-Prefix Standardization (DuckDB SQL)
+-- Forces consistent format before LEFT JOIN against FAA Master Registry
+
+CASE 
+    WHEN Tail_Number IS NULL OR TRIM(Tail_Number) = '' THEN 'UNKNOWN'
+    WHEN TRIM(Tail_Number) NOT LIKE 'N%' THEN 'N' || TRIM(Tail_Number)
+    ELSE TRIM(Tail_Number)
+END AS Clean_Tail
+```
+
+> 314 raw null matches → 127 resolved by standardization → **187 genuine Ghost Aircraft** confirmed.
+
+---
+
+### 3. Gold Layer Export — Production-Grade Compression
+Processed data exported as SNAPPY-compressed Parquet before Power BI ingestion.
+
+```python
+# Gold Layer: SNAPPY-Compressed Parquet Export (Python / DuckDB)
+# Reduces 350MB raw CSV output to 96MB — 72% compression
+# Zero data loss. Native Power BI and pandas compatibility.
+
+con.execute(f"""
+    COPY bts_flights 
+    TO '{DATA_PROCESSED}/Aviation_Fact_Table.parquet' 
+    (FORMAT PARQUET, CODEC 'SNAPPY')
+""")
+```
+
+> Raw CSV: ~350MB &nbsp;→&nbsp; SNAPPY Parquet: **96MB** &nbsp;|&nbsp; Compression: **72%**
+
+---
+
 ## Dashboard Pages
 
 ### CEO Executive Overview
