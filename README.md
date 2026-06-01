@@ -1,54 +1,56 @@
-# US Aviation Reliability Analysis & Asset Risk Audit (2024)
+# US Aviation Asset Liability Engine
 
-### 📊 Deployment Status: [Production Ready]
-
-## 1. Executive Summary & Business Problem
-In the US National Airspace System (NAS), maintenance-related delays account for massive, unoptimized capital drain. This project executes an enterprise-grade forensic audit of **7.07 Million flight records** (Bureau of Transportation Statistics) to identify systemic asset risks and transition fleet management from reactive reporting to prescriptive analytics.
-
-**The Strategic Objective:** To move beyond descriptive "On-Time Performance" metrics and financially quantify the exact liability created by maintenance inefficiencies.
-**The Scope:** Auditing **$4.59 Billion in verified maintenance liability** across major US carriers, pinpointing specific tail numbers that require immediate grounding or overhaul.
+📊 **Deployment Status:** [Production Ready] | **Scale:** 7.07M Records
 
 ![Project Cover](assets/01_project_cover.png)
+
+## 1. Executive Summary & Commercial Impact
+In the highly regulated aviation leasing sector, missing or fragmented technical records create massive financial exposure during End-of-Life (EOL) asset transitions. 
+
+This project executes a forensic data audit of **7.07 Million US flight records** to quantify the exact Maintenance Reserve Liability (MRL) accumulating across the domestic fleet. 
+
+**The Strategic Output:** 
+* Audited and verified **$4.59 Billion in total maintenance liability**.
+* Reconciled **187 "Ghost Aircraft"** (assets flying without official registry matches), surfacing **$30 Million in hidden financial exposure**.
+* Eliminated **$20 Million in "Phantom Liability"** by programmatically identifying and stripping 96,315 cancelled flights from the accrual logic.
 
 ### 🔗 Live Architecture Access
 * **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiMzFmMDY5Y2MtNjM0NS00OTllLWEzNWYtNGI0NWIzODk4NWJlIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
 * **[⬇️ Download Semantic Model (.pbix - 166MB)](https://drive.google.com/file/d/19wxG6s6Yu3cAIU23FfI_M4V6Df_WePQx/view?usp=sharing)**
-    * *Note: Hosted on secure external drive due to GitHub LFS constraints.*
+  *Note: Hosted on secure external drive due to GitHub LFS constraints.*
 
 ---
 
-## 2. Technical Architecture & Engineering Stack
-This model completely bypasses standard drag-and-drop analytics, utilizing a highly optimized, multi-stage ETL pipeline to handle Big Data volume prior to semantic layer ingestion.
+## 2. Technical Architecture: The Medallion Pipeline
+This engine bypasses standard memory-bound analytics (Pandas), utilizing a highly optimized, multi-stage ETL pipeline to handle 11GB+ of unstructured regulatory data with zero loss of integrity.
 
-* **Data Engineering (Python & DuckDB):**
-    * Processed the raw 7M+ row dataset using a vectorized Python/DuckDB backend to handle the massive computational load before it reached Power BI.
-    * Calculated row-level liability ($75/min) upstream, minimizing the reliance on heavy frontend iterators and reserving complex DAX exclusively for dynamic baseline comparisons.
-* **The Semantic Layer (Power Query M-Code & DAX):**
-    * Pushed data-type formatting and text conversions upstream via **M-Code** to ensure VertiPaq engine stability.
-    * Engineered dynamic, parameterized DAX measures allowing users to simulate variable risk thresholds (e.g., $600k vs $1.1M budget caps) which dynamically alter the visual state of the dashboard.
-* **Dimensional Modeling:** Designed a highly optimized **Fact Constellation Schema** (2 Fact Tables, 3 Dimensions) using surrogate integer keys (`Flight_ID`) to replace heavy composite text strings, maximizing compression.
+* **Bronze Layer (Ingestion):** Raw BTS flight logs and FAA registries ingested. Handled massive blank strings and dirty mechanic entries without schema failure.
+* **Silver Layer (DuckDB Vectorization):** Processed 7M+ rows using a vectorized Python/DuckDB backend. Built custom SQL CTEs to standardize tail numbers (N-prefixes) and execute complex `LEFT JOIN` anomaly detection against the FAA master registry. 
+* **Gold Layer (Power BI / DAX):** Exported to SNAPPY-compressed Parquet files (reducing 350MB to 96MB). Engineered a Fact Constellation Schema utilizing surrogate integer keys (`Flight_ID`) to maximize VertiPaq compression.
 
 ![Data Model Schema](assets/05_star_schema_model.png)
 
 ---
 
-## 3. UI/UX & Human-Centric Design Principles
-The interface was engineered utilizing advanced data visualization psychology to eliminate cognitive friction for C-suite executives. 
+## 3. Core Forensic Findings
 
-* **Gestalt Alignment:** Implemented strict X/Y coordinate mapping to establish a professional Z-pattern layout, ensuring flawless symmetry across all visual elements.
-* **Maximized Data-Ink Ratio:** Eradicated redundant axis titles, gridlines, and nested scrollbars. Converted spatially distorted geographic maps into mathematically precise Top N sorted bar charts to accelerate time-to-insight.
-* **Prescriptive UI Elements:** Replaced standard gauges with highly efficient **Bullet Charts** for budget utilization tracking, and integrated SVG-based dynamic alert cards that trigger based on DAX context transitions.
+### A. The "Ghost Aircraft" Reconciliation
+A cross-reference delta calculation between FAA Registries and BTS Flight Logs initially returned 314 null matches. After building a custom SQL `CASE` statement to standardize N-prefix anomalies, **187 confirmed Ghost Aircraft** remained. These assets were actively accumulating wear-and-tear with zero official registry tracking.
+
+### B. MRL Formula Optimization (Phantom Liability)
+Initial legacy calculations applied the standard `$180 per cycle` cost uniformly. I re-engineered the pipeline logic to enforce a strict filter against cancelled flights, eliminating $20M in incorrectly accrued liability from the final audit.
 
 ---
 
-## 4. The Analytical Engine (Key Visuals)
+## 4. UI/UX: Executive Decision Dashboard
+The semantic layer was designed with strict Gestalt alignment and a maximized Data-Ink ratio for C-Suite executives.
 
 ### A. CEO-Level Executive Summary
 A macro-level view of the $4.59 Billion liability. Features a dynamic DAX combo chart injecting a strategic reserve target line across the financial timeline. 
 ![Executive Summary](assets/02_executive_summary.png)
 
 ### B. The "Kill Zone" (Asset Risk Audit)
-A dual-axis scatter plot engineered for **Outlier Detection**. By plotting Total Maintenance Liability against Delay Impact, the model creates a dynamic "Kill Zone" (Red Quadrant) that isolates the top 1% of rogue aircraft bleeding capital.
+A dual-axis scatter plot isolating the top 1% of rogue aircraft bleeding capital through carrier-controllable delays and hardware degradation. 
 ![Asset Risk Audit](assets/03_asset_risk_audit.png)
 
 ### C. Granular Drill-Through (Asset Profile)
@@ -56,13 +58,7 @@ Forensic-level detail utilizing cross-filtered context to investigate specific t
 ![Maintenance Detail](assets/04_maintenance_detail.png)
 
 ---
+### 🔗 👤 Architect
 
-## 5. Key Strategic Insights
-1. **Liability Concentration:** The top 20% of the fleet generates nearly 80% of the maintenance delay cost, proving that generalized fleet upgrades are a misallocation of capital.
-2. **The "Ghost Aircraft" Anomaly:** A cross-reference delta calculation between the FAA Registry and BTS Flight Logs identified 300+ unregistered active tails, exposing critical data governance vulnerabilities.
-3. **Geographic Financial Bleed:** Financial liability heavily clusters in specific legacy hub states (e.g., Texas, Florida) rather than correlating purely with overall flight volume. 
-
----
-### 🔗 👤 Data Architect
-
-**Momin Khan** *Data Analyst | Enterprise Data Modeling* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/mominpathann/)
+**Momin Khan** *Aviation Asset Liability Auditor | Technical Records Architect* 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/mominpathann/)
