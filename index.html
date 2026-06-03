@@ -3,156 +3,981 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Study: US Aviation Reliability Analysis</title>
+    <title>US Aviation Reliability Analysis & Asset Risk Audit (2024) — Momin Khan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* --- GLOBAL ENGINEERING --- */
-        * {
-            box-sizing: border-box;
+        /* ── RESET & BASE ─────────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy:       #00205b;
+            --navy-light: #0a3270;
+            --navy-mid:   #1a4a8a;
+            --red:        #c0392b;
+            --red-light:  #e74c3c;
+            --slate:      #e8edf4;
+            --white:      #ffffff;
+            --text:       #1a2332;
+            --text-mid:   #4a5568;
+            --text-light: #718096;
+            --border:     #d1dbe8;
+            --accent:     #2563eb;
+            --mono:       'IBM Plex Mono', monospace;
+            --sans:       'IBM Plex Sans', sans-serif;
+            --max-width:  1040px;
+            --radius:     6px;
         }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #e2e8f0; /* Professional slate background */
-            margin: 0;
-            padding: 40px 20px;
+            font-family: var(--sans);
+            background-color: var(--slate);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        /* --- UNIFIED CARD: HEADER --- */
+
+        /* ── HEADER ───────────────────────────────────────────────── */
         header {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #00205b; 
-            color: #ffffff;
-            padding: 50px 40px;
-            text-align: left;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--navy-mid) 100%);
+            color: var(--white);
+            padding: 64px 40px 56px;
+            position: relative;
+            overflow: hidden;
         }
-        header h1 { margin: 0 0 10px 0; font-size: 2.8rem; color: #ffffff; line-height: 1.2;}
-        header h2 { margin: 0 0 25px 0; font-size: 1.4rem; font-weight: 400; color: #cbd5e1; border: none; padding: 0; }
-        .author-info p { margin: 5px 0; font-size: 1.1rem; color: #e2e8f0; }
-        
-        .header-links { margin-top: 25px; display: flex; gap: 20px; flex-wrap: wrap; }
-        .header-links a { color: #ffffff; text-decoration: underline; font-weight: bold; font-size: 1.1rem; }
-        .header-links a:hover { color: #93c5fd; text-decoration: none; }
 
-        /* --- UNIFIED CARD: BODY CONTAINER --- */
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px);
+            pointer-events: none;
+        }
+
+        .header-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .header-badge {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 5px 12px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        header h2 {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 28px;
+            letter-spacing: 0.01em;
+        }
+
+        .author-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .author-row span { color: rgba(255,255,255,0.45); }
+
+        .header-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .link-primary {
+            background: var(--white);
+            color: var(--navy);
+        }
+        .link-primary:hover { background: #e8f0ff; transform: translateY(-1px); }
+
+        .link-secondary {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .link-secondary:hover { background: rgba(255,255,255,0.18); transform: translateY(-1px); }
+
+        /* ── MAIN CONTAINER ───────────────────────────────────────── */
         .container {
-            max-width: 1000px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        /* --- TYPOGRAPHY & COMPONENTS --- */
-        section h2 { color: #00205b; border-bottom: 2px solid #00205b; padding-bottom: 5px; margin-top: 40px; }
-        h3 { color: #444; margin-top: 25px; font-size: 1.3rem; }
-        p { font-size: 1.05rem; }
-        ul { padding-left: 20px; font-size: 1.05rem; }
-        li { margin-bottom: 10px; }
-        
-        .metrics-grid {
-            display: flex; justify-content: space-between; gap: 20px;
-            background-color: #f8fafc; padding: 25px; border-radius: 8px; margin: 30px 0;
-            border: 1px solid #e2e8f0;
-        }
-        .metric-card { text-align: center; flex: 1; }
-        .metric-card strong { display: block; font-size: 2.2rem; color: #00205b; line-height: 1.1; margin-bottom: 5px;}
-        
-        .portfolio-image {
-            width: 100%; height: auto; border: 1px solid #cbd5e1;
-            border-radius: 5px; margin: 25px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: var(--white);
+            border-radius: 0 0 var(--radius) var(--radius);
+            box-shadow: 0 8px 32px rgba(0,32,91,0.12);
+            overflow: hidden;
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
+        .content { padding: 56px 48px; }
+
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            header { padding: 30px 20px; }
-            header h1 { font-size: 2rem; }
-            .container { padding: 20px; }
-            .metrics-grid { flex-direction: column; gap: 15px; }
-            .header-links { flex-direction: column; gap: 10px; }
+            header { padding: 40px 24px; }
+            .content { padding: 32px 24px; }
+        }
+
+        /* ── SECTION STRUCTURE ────────────────────────────────────── */
+        section { margin-bottom: 56px; }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--navy);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--navy);
+            letter-spacing: -0.01em;
+        }
+
+        section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 28px 0 10px;
+        }
+
+        p { font-size: 1rem; color: var(--text-mid); margin-bottom: 14px; }
+
+        ul { padding-left: 20px; color: var(--text-mid); font-size: 1rem; }
+        li { margin-bottom: 10px; }
+        li strong { color: var(--text); }
+
+        /* ── METRICS GRID ─────────────────────────────────────────── */
+        .metrics-primary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 28px 0 36px;
+        }
+
+        .metric-card {
+            background: var(--white);
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .metric-card .val {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+            font-family: var(--mono);
+        }
+
+        .metric-card .lbl {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+        }
+
+        .metrics-secondary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .metric-small {
+            background: #f4f7fb;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .metric-small .val {
+            font-family: var(--mono);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--navy);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .metric-small .lbl {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .metric-alert { border-color: #fecdd3; background: #fff5f5; }
+        .metric-alert .val { color: var(--red); }
+
+        @media (max-width: 640px) {
+            .metrics-primary { grid-template-columns: repeat(2, 1fr); }
+            .metrics-secondary { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ── FORENSIC FINDING CARDS ───────────────────────────────── */
+        .finding-card {
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--navy);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            background: #fafcff;
+        }
+
+        .finding-card.red { border-left-color: var(--red); background: #fff8f8; }
+
+        .finding-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .finding-card.red h4 { color: var(--red); }
+
+        .finding-card p { font-size: 0.93rem; margin: 0; }
+
+        .finding-number {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .finding-card.red .finding-number { color: var(--red); }
+
+        /* ── CALLOUT BOX ──────────────────────────────────────────── */
+        .callout {
+            background: #f0f4ff;
+            border: 1px solid #c7d7f5;
+            border-left: 4px solid var(--navy);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        /* ── CODE BLOCK ───────────────────────────────────────────── */
+        .code-block {
+            background: #0d1117;
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: #c9d1d9;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .code-comment { color: #6e7681; }
+        .code-keyword { color: #ff7b72; }
+        .code-string  { color: #a5d6ff; }
+        .code-number  { color: #79c0ff; }
+        .code-label   { color: #e3b341; }
+
+        /* ── PIPELINE DIAGRAM ─────────────────────────────────────── */
+        .pipeline {
+            background: #f4f7fb;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .pipeline pre {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre;
+        }
+
+        /* ── IMAGE CARDS ──────────────────────────────────────────── */
+        .img-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 24px 0;
+            box-shadow: 0 2px 12px rgba(0,32,91,0.06);
+        }
+
+        .img-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .img-caption {
+            padding: 10px 16px;
+            background: #f4f7fb;
+            border-top: 1px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--text-light);
+            font-family: var(--mono);
+        }
+
+        /* Two-column image layout */
+        .img-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        @media (max-width: 640px) { .img-row { grid-template-columns: 1fr; } }
+
+        /* ── KILL ZONE SECTION ────────────────────────────────────── */
+        .killzone-hero {
+            background: var(--navy);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin: 24px 0;
+            color: var(--white);
+        }
+
+        .killzone-hero h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .killzone-hero p {
+            color: rgba(255,255,255,0.72);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .killzone-stat {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 3px;
+            color: var(--white);
+            margin: 12px 8px 0 0;
+        }
+
+        .dot-red  { width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; flex-shrink: 0; }
+        .dot-navy { width: 8px; height: 8px; border-radius: 50%; background: #93c5fd; flex-shrink: 0; }
+
+        /* ── DAX TABLE ────────────────────────────────────────────── */
+        .dax-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 16px 0;
+        }
+
+        .dax-table th {
+            background: var(--navy);
+            color: var(--white);
+            text-align: left;
+            padding: 10px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .dax-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .dax-table tr:last-child td { border-bottom: none; }
+        .dax-table tr:nth-child(even) td { background: #f8fafc; }
+
+        .dax-name {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--navy);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* ── OUTPUT SCHEMA TABLE ──────────────────────────────────── */
+        .schema-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 16px 0;
+        }
+
+        .schema-table th {
+            background: #f0f4ff;
+            color: var(--navy);
+            text-align: left;
+            padding: 10px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--navy);
+        }
+
+        .schema-table td {
+            padding: 11px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-mid);
+        }
+
+        .schema-table td:first-child {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .schema-table td:nth-child(2) {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ── GHOST AUDIT SAMPLES ──────────────────────────────────── */
+        .ghost-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .ghost-tag {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            background: #fff8f8;
+            border: 1px solid #fecdd3;
+            color: var(--red);
+            padding: 6px 10px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) { .ghost-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        /* ── FOOTER ───────────────────────────────────────────────── */
+        footer {
+            background: var(--navy);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 28px 24px;
+            font-size: 0.85rem;
+        }
+
+        footer a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; }
+        footer a:hover { color: var(--white); }
+        footer strong { color: var(--white); }
+
+        /* ── SCROLL ANIMATION ─────────────────────────────────────── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>US Aviation Reliability Analysis</h1>
-        <h2>Enterprise Data Modeling & Asset Risk Management (2024)</h2>
-        
-        <div class="author-info">
-            <p><strong>Momin Khan</strong> | Data Analyst & Aviation Domain Expert</p>
-            <p>Core Stack: Python, DuckDB, Power BI, DAX, Power Query (M)</p>
+<!-- ── HEADER ───────────────────────────────────────────────────────── -->
+<header>
+    <div class="header-inner">
+        <div class="header-badge">FY2024 &nbsp;·&nbsp; US Domestic Network &nbsp;·&nbsp; Production Ready</div>
+        <h1>US Aviation Reliability Analysis<br>&amp; Asset Risk Audit</h1>
+        <h2>Enterprise Data Engineering &amp; Fleet Liability Forensics</h2>
+        <div class="author-row">
+            <strong>Momin Khan</strong>
+            <span>|</span>
+            <span>Data Analyst &amp; Aviation Domain Expert</span>
+            <span>|</span>
+            <span>Python &nbsp;·&nbsp; DuckDB &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; DAX</span>
         </div>
-
         <div class="header-links">
-            <a href="https://www.linkedin.com/in/mominpathann/" target="_blank">LinkedIn</a>
-            <a href="https://github.com/MominPathann/US-Aviation-Reliability-Audit/tree/main" target="_blank">GitHub Repository</a>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiMzFmMDY5Y2MtNjM0NS00OTllLWEzNWYtNGI0NWIzODk4NWJlIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db" target="_blank">Live Dashboard</a>
+            <a href="https://app.powerbi.com/view?r=eyJrIjoiMzFmMDY5Y2MtNjM0NS00OTllLWEzNWYtNGI0NWIzODk4NWJlIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db" target="_blank" class="link-primary">📊 Live Dashboard</a>
+            <a href="https://github.com/MominPathann/US-Aviation-Reliability-Audit" target="_blank" class="link-secondary">⬡ GitHub Repository</a>
+            <a href="https://drive.google.com/file/d/19wxG6s6Yu3cAIU23FfI_M4V6Df_WePQx/view?usp=sharing" target="_blank" class="link-secondary">⬇ Download .pbix</a>
+            <a href="https://www.linkedin.com/in/mominpathann/" target="_blank" class="link-secondary">in LinkedIn</a>
         </div>
-    </header>
-
-    <div class="container">
-        <section>
-            <h2>Executive Summary</h2>
-            <p>Engineered an enterprise-grade analytical model to audit domestic commercial flight data, isolating controllable carrier maintenance failures from uncontrollable external airspace factors. The dashboard transitions organizational focus from descriptive reporting to prescriptive asset management, identifying high-risk aircraft bleeding capital and destroying passenger experience.</p>
-            
-            <div class="metrics-grid">
-                <div class="metric-card"><strong>7.07M</strong>Records Processed</div>
-                <div class="metric-card"><strong>$4.59B</strong>Maintenance Liability</div>
-                <div class="metric-card"><strong>5,911</strong>Unique Aircraft Tracked</div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Architectural & Engineering Achievements</h2>
-            <h3>1. Data Pipeline & Semantic Modeling</h3>
-            <ul>
-                <li><strong>Data Engineering (Python & DuckDB):</strong> Processed the raw 7.07 million row dataset using a vectorized DuckDB backend to handle the massive computational load before it reached Power BI.</li>
-                <li><strong>Fact Constellation Schema:</strong> Designed a highly optimized dimensional model (2 Fact Tables, 3 Dimensions) utilizing surrogate integer keys to replace heavy composite text strings and maximize VertiPaq compression.</li>
-                <li><strong>Upstream Transformation:</strong> Enforced data hygiene by pushing date/time formatting and text string aliasing upstream via Power Query (M-Code), completely bypassing frontend DAX rendering limitations to ensure absolute pipeline stability.</li>
-            </ul>
-
-            <h3>2. Advanced DAX & Prescriptive Logic</h3>
-            <ul>
-                <li><strong>Dynamic Risk Thresholding:</strong> Engineered parameterized DAX measures allowing executives to input custom financial constraints (e.g., $600k threshold), instantly recalculating fleet compliance and dynamically triggering SVG-based "OVERHAUL REQUIRED" alerts on asset profiles.</li>
-                <li><strong>Outlier Detection (The "Kill Zone"):</strong> Built a dual-axis scatter plot model measuring Delay Impact vs. Financial Liability. Implemented distinct dynamic reference lines to visually isolate the top 1% of rogue aircraft requiring immediate grounding.</li>
-            </ul>
-
-            <h3>3. UI/UX & Human-Centric Design</h3>
-            <ul>
-                <li><strong>Gestalt Grid Alignment:</strong> Applied strict X/Y coordinate mapping to establish a professional, McKinsey-style Z-pattern layout, eliminating cognitive friction and ensuring seamless data navigation.</li>
-                <li><strong>Maximizing Data-Ink Ratio:</strong> Ruthlessly eliminated redundant axis titles, gridlines, and nested scrollbars. Replaced spatially distorted geographic maps with mathematically precise Top N sorted bar charts to accelerate executive time-to-insight.</li>
-                <li><strong>Bullet Chart Execution:</strong> Deployed target-based bullet charts for budget utilization tracking, avoiding spatially wasteful gauge visuals and providing linear, instantly readable variance tracking.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>The Analytical Engine</h2>
-            
-            <h3>A. CEO-Level Executive Summary</h3>
-            <p>A macro-level view of the $4.59 Billion liability. Features a dynamic DAX combo chart injecting a strategic reserve target line across the financial timeline.</p>
-            <img src="ceo-overview.png" alt="CEO Dashboard showing macro financial liability and Top 10 states" class="portfolio-image">
-
-            <h3>B. The "Kill Zone" (Asset Risk Audit)</h3>
-            <p>A dual-axis scatter plot engineered for Outlier Detection. By plotting Total Maintenance Liability against Delay Impact, the model creates a dynamic "Kill Zone" (Red Quadrant) that isolates the top 1% of rogue aircraft.</p>
-            <img src="ops-and-maintenance.png" alt="Ops and Maintenance Dashboard showing Asset Risk Scatter Plot" class="portfolio-image">
-
-            <h3>C. Granular Drill-Through (Asset Profile)</h3>
-            <p>Forensic-level detail utilizing cross-filtered context to investigate specific tail numbers. Features a dense Financial Health Profile with linear bullet charts tracking run-rate costs against the budget.</p>
-            <img src="maintenance-detail.png" alt="Maintenance Detail Dashboard showing Asset Profile and Bullet Chart" class="portfolio-image">
-        </section>
-
-        <section>
-            <h2>Business Impact</h2>
-            <p>This model shifts aviation maintenance strategy from reactive to predictive. By utilizing Top N dynamic filtering and absolute cross-filtering across the semantic model, maintenance directors can filter through billions of dollars in operational liability to find the specific Tail Number requiring immediate overhaul in under three clicks.</p>
-        </section>
-
     </div>
+</header>
+
+<!-- ── MAIN ─────────────────────────────────────────────────────────── -->
+<div class="container">
+<div class="content">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="fade-in">
+        <div class="section-label">Overview</div>
+        <h2>Executive Summary</h2>
+        <p>Airlines and MRO operators routinely make capital allocation decisions based on maintenance liability data that is never audited at the record level. Cancelled flights get counted as completed cycles. Ghost aircraft accumulate wear with no registry tracking. This project forensically audits <strong>7.07 million BTS flight records</strong> against the FAA Master Registry to quantify the actual, verified maintenance liability of the US domestic fleet.</p>
+
+        <div class="metrics-primary">
+            <div class="metric-card">
+                <span class="val">7.07M</span>
+                <span class="lbl">Records Processed</span>
+            </div>
+            <div class="metric-card">
+                <span class="val">$4.59B</span>
+                <span class="lbl">Verified MRL Liability</span>
+            </div>
+            <div class="metric-card">
+                <span class="val">$8.30B</span>
+                <span class="lbl">Total Delay Cost</span>
+            </div>
+        </div>
+
+        <div class="metrics-secondary">
+            <div class="metric-small">
+                <span class="val">5,911</span>
+                <span class="lbl">Registered Aircraft</span>
+            </div>
+            <div class="metric-small">
+                <span class="val">88.9%</span>
+                <span class="lbl">TDR Score</span>
+            </div>
+            <div class="metric-small">
+                <span class="val">80.3%</span>
+                <span class="lbl">On-Time Performance</span>
+            </div>
+            <div class="metric-small">
+                <span class="val">66.2%</span>
+                <span class="lbl">Fleet Health %</span>
+            </div>
+            <div class="metric-small metric-alert">
+                <span class="val">199</span>
+                <span class="lbl">Ghost Aircraft</span>
+            </div>
+            <div class="metric-small metric-alert">
+                <span class="val">$17.3M</span>
+                <span class="lbl">Phantom Liability</span>
+            </div>
+            <div class="metric-small metric-alert">
+                <span class="val">2,000+</span>
+                <span class="lbl">At-Risk Assets</span>
+            </div>
+            <div class="metric-small">
+                <span class="val">72.5%</span>
+                <span class="lbl">Carrier Delay %</span>
+            </div>
+        </div>
+
+        <div class="img-card">
+            <img src="assets/01_project_cover.png" alt="Project Cover — US Aviation Reliability Analysis 2024">
+            <div class="img-caption">FY2024 Audit Scope · 7.07M Records · Bureau of Transportation Statistics</div>
+        </div>
+    </section>
+
+    <!-- FORENSIC FINDINGS -->
+    <section class="fade-in">
+        <div class="section-label">Forensic Analysis</div>
+        <h2>Key Findings</h2>
+
+        <div class="finding-card red">
+            <h4>01 — The $17.3M Phantom Liability Catch</h4>
+            <span class="finding-number">$17,336,700</span>
+            <p>The standard MRL formula applies a $180 per cycle charge to every flight record uniformly. Initial processing revealed <strong>96,315 cancelled flights</strong> incorrectly included in the accrual logic — generating phantom maintenance liability that never existed. The pipeline enforces a hard-zero on cancelled flights upstream in the Silver layer before any cost calculation runs.</p>
+            <p style="margin-top:10px; font-style:italic; font-size:0.9rem; color:#888;">This is the difference between a dashboard and a forensic audit.</p>
+        </div>
+
+        <div class="finding-card red">
+            <h4>02 — Ghost Aircraft Reconciliation</h4>
+            <span class="finding-number">199 Confirmed</span>
+            <p>Cross-referencing BTS flight logs against the FAA Master Registry produced <strong>314 null matches</strong> — aircraft flying with no official record. Root cause: inconsistent N-prefix formatting across both datasets. After applying tail number standardization: <strong>314 raw nulls → 115 resolved → 199 confirmed Ghost Aircraft</strong>. These assets were accumulating flight hours and cycles with zero official registry tracking.</p>
+        </div>
+
+        <div class="finding-card">
+            <h4>03 — 72.5% of Delays Are Carrier-Controllable</h4>
+            <span class="finding-number">72.5%</span>
+            <p>The delay decomposition isolates carrier-controllable failures (Carrier Delay) from external factors (weather, NAS, security). <strong>72.5% of all delay minutes are the airline's direct operational responsibility</strong> — not weather or ATC. This is the accountability metric that drives intervention decisions and capital reallocation.</p>
+        </div>
+
+        <div class="finding-card">
+            <h4>04 — Geographic Liability Clustering</h4>
+            <span class="finding-number">TX $1.02B · FL $885M · CA $757M</span>
+            <p>Maintenance liability concentrates in legacy hub states independently of raw flight volume — pointing to station-level maintenance culture and infrastructure age, not purely operational scale. Generalized fleet upgrades are a misallocation of capital.</p>
+        </div>
+    </section>
+
+    <!-- CEO OVERVIEW -->
+    <section class="fade-in">
+        <div class="section-label">Dashboard — Page 1</div>
+        <h2>CEO Executive Overview</h2>
+        <p>Macro-level view of the $4.59B liability. Dynamic DAX combo chart with a $1.5B strategic reserve target line injected across the financial timeline. Carrier sector breakdown by total delay cost. Cumulative MRL accrual trend through FY2024.</p>
+        <div class="img-card">
+            <img src="assets/02_executive_summary.png" alt="CEO Overview — $4.59B MRL, $8.30B Delay Cost, Financial Trend">
+            <div class="img-caption">CEO Overview · $4.59B Total MRL · $8.30B Total Delay Cost · 66.2% Fleet Health</div>
+        </div>
+    </section>
+
+    <!-- THE KILL ZONE -->
+    <section class="fade-in">
+        <div class="section-label">Dashboard — Page 2 · Core Analytical Output</div>
+        <h2>The Kill Zone</h2>
+
+        <div class="killzone-hero">
+            <h3>Asset Risk Audit: Liability vs. Delay Impact</h3>
+            <p>A dual-axis scatter plot — Total Maintenance Liability (X) vs. Total Delay Impact (Y) — that isolates the top 1% of assets simultaneously exceeding both the cost and delay threshold. Every dot is a tail number. Navy dots are within budget. Red dots have crossed the threshold and require immediate intervention.</p>
+            <div>
+                <span class="killzone-stat"><span class="dot-red"></span> Overhaul Required</span>
+                <span class="killzone-stat"><span class="dot-navy"></span> Operational</span>
+                <span class="killzone-stat">2,000+ At-Risk Assets</span>
+            </div>
+        </div>
+
+        <div class="img-card">
+            <img src="assets/06_kill_zone_clean.png" alt="Kill Zone Scatter — Full fleet risk classification">
+            <div class="img-caption">Kill Zone · Full scatter · Default threshold $900K · Red cluster = 2,000+ at-risk assets</div>
+        </div>
+
+        <p>The dashed threshold lines are live Power BI parameters. Moving the Risk Threshold slicer reclassifies every dot, updates the priority table, and recalculates the at-risk count — all in under a second via DAX context propagation across 7M records.</p>
+
+        <div class="img-row">
+            <div class="img-card" style="margin:0">
+                <img src="assets/07_kill_zone_tooltip.png" alt="Kill Zone tooltip — individual aircraft profile">
+                <div class="img-caption">Tooltip · Individual aircraft MRL + delay breakdown</div>
+            </div>
+            <div class="img-card" style="margin:0">
+                <img src="assets/08_threshold_shift.png" alt="Kill Zone threshold shift — dynamic reclassification">
+                <div class="img-caption">Threshold shifted · Cluster reclassified in real time</div>
+            </div>
+        </div>
+
+        <h3>Dynamic Threshold Demo</h3>
+        <p>Moving the risk threshold from $600K to $1.2M reclassifies the entire fleet simultaneously. This is not a filter — it is a live DAX parameter changing the color logic, the priority table, and the at-risk count across all visuals on the page.</p>
+        <div class="img-card">
+            <img src="assets/kill_zone_demo.gif" alt="Kill Zone live demo — threshold shift animation">
+            <div class="img-caption">Live demo · Threshold adjustment · Real-time fleet reclassification</div>
+        </div>
+
+        <h3>Maintenance Priority Table</h3>
+        <p>The scatter drives a ranked priority table — aircraft that exceed the threshold are surfaced automatically, sorted by maintenance cost, with live OVERHAUL REQUIRED status icons computed in DAX.</p>
+        <div class="img-card">
+            <img src="assets/09_priority_table.png" alt="Maintenance Priority Table — ranked tail numbers">
+            <div class="img-caption">Maintenance Priority Table · Ranked by liability · Dynamic status icons</div>
+        </div>
+    </section>
+
+    <!-- OPS & MAINTENANCE PAGE -->
+    <section class="fade-in">
+        <div class="section-label">Dashboard — Page 2 Full</div>
+        <h2>Ops &amp; Maintenance</h2>
+        <p>Full Ops &amp; Maintenance page showing the Kill Zone scatter, carrier risk breakdown, and ranked priority table. TDR Score, Carrier Delay %, On-Time Performance, and Avg Technical Delay displayed as KPI cards.</p>
+        <div class="img-card">
+            <img src="assets/03_asset_risk_audit.png" alt="Ops & Maintenance — Kill Zone, Carrier Risk, Priority Table">
+            <div class="img-caption">Ops & Maintenance · TDR 88.9% · Carrier Delay 72.5% · 2K At-Risk Assets · 45.4 min Avg Technical Delay</div>
+        </div>
+    </section>
+
+    <!-- MAINTENANCE DETAIL -->
+    <section class="fade-in">
+        <div class="section-label">Dashboard — Page 3</div>
+        <h2>Maintenance Detail: Asset Technical Log &amp; Risk Profile</h2>
+        <p>Forensic drill-through to individual tail number level. Displays MRL liability, remaining reserve budget, annual utilization hours, liability burn rate per flight, 12-month cost vs. delay trend, and live OVERHAUL REQUIRED / OPERATIONAL status — all computed in DAX against the 7M-row fact table.</p>
+        <div class="img-card">
+            <img src="assets/04_maintenance_detail.png" alt="Maintenance Detail — Individual asset profile with MRL accrual trend">
+            <div class="img-caption">Maintenance Detail · N926WN · $1.11M MRL · Remaining Budget ($211K) · OVERHAUL REQUIRED</div>
+        </div>
+        <div class="img-card">
+            <img src="assets/10_overhaul_status.png" alt="OVERHAUL REQUIRED status card — SVG DAX engineering">
+            <div class="img-caption">Dynamic Status Card · SVG icons generated in DAX · $1.1M vs $600K threshold · Budget exceeded</div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL ARCHITECTURE -->
+    <section class="fade-in">
+        <div class="section-label">Engineering</div>
+        <h2>Technical Architecture: The Medallion Pipeline</h2>
+        <p>Built to handle <strong>11GB+ of unstructured regulatory data</strong> without memory failure or schema collapse. Standard Pandas DataFrames crash at this scale — DuckDB's columnar vectorized engine processes the same dataset in memory-efficient SIMD chunks.</p>
+
+        <div class="pipeline">
+<pre>RAW BTS + FAA DATA  (12 monthly ZIPs + MASTER.txt + ACFTREF.txt)
+         │
+         ▼
+┌─────────────────────┐
+│   BRONZE LAYER      │  Monthly BTS ZIPs downloaded with retry logic.
+│   download_and_     │  CSVs extracted. Dirty entries ingested without
+│   extract()         │  schema failure.
+└─────────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│   SILVER LAYER      │  DuckDB vectorized ETL on 7.07M rows.
+│   run_silver_       │  N-prefix standardization. Corrected MRL formula.
+│   pipeline()        │  2 fact tables + 3 dimensions extracted.
+└─────────────────────┘  6x SNAPPY Parquet files exported.
+         │
+         ▼
+┌─────────────────────┐
+│   AUDIT LAYER       │  Set difference: active_fleet − registered.
+│   run_ghost_        │  MASTER.txt + ACFTREF.txt merged.
+│   aircraft_audit()  │  199 ghost aircraft confirmed and exported.
+└─────────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│   GOLD LAYER        │  Power BI semantic layer. 40+ DAX measures.
+│   Power BI / DAX    │  Fact Constellation Schema. Parametric
+└─────────────────────┘  risk simulation. SVG status cards.</pre>
+        </div>
+
+        <h3>Core Pipeline Snippets</h3>
+
+        <h4 style="font-size:0.9rem;color:var(--text-mid);margin:20px 0 8px;font-weight:600;">MRL Formula — $17.3M Phantom Liability Eliminated</h4>
+        <div class="code-block"><pre><span class="code-comment">-- MRL Formula: (AirTime / 60 × $250) + $180 per cycle
+-- Cancelled flights and null AirTime → hard-zeroed before calculation
+-- 96,315 cancelled flights × $180 = $17,336,700 eliminated at source</span>
+
+<span class="code-keyword">CASE</span>
+    <span class="code-keyword">WHEN</span> TRY_CAST(Cancelled <span class="code-keyword">AS</span> <span class="code-string">INTEGER</span>) = <span class="code-number">1</span>
+      <span class="code-keyword">OR</span> TRY_CAST(AirTime   <span class="code-keyword">AS</span> <span class="code-string">INTEGER</span>) <span class="code-keyword">IS NULL</span> <span class="code-keyword">THEN</span> <span class="code-number">0.0</span>
+    <span class="code-keyword">ELSE</span> ((TRY_CAST(AirTime <span class="code-keyword">AS</span> <span class="code-string">INTEGER</span>) / <span class="code-number">60.0</span>) * <span class="code-number">250.0</span>) + <span class="code-number">180.0</span>
+<span class="code-keyword">END AS</span> MRL_Liability</pre></div>
+
+        <h4 style="font-size:0.9rem;color:var(--text-mid);margin:20px 0 8px;font-weight:600;">Ghost Aircraft Detection — Set Difference</h4>
+        <div class="code-block"><pre><span class="code-comment"># Set difference: tail numbers flying with NO FAA registry match
+# Equivalent to LEFT JOIN WHERE faa.tail IS NULL</span>
+
+active_fleet = <span class="code-keyword">set</span>(fact_tails[<span class="code-string">'Tail_Number'</span>].dropna().<span class="code-keyword">apply</span>(clean_tail))
+registered   = <span class="code-keyword">set</span>(merged_master[<span class="code-string">'N-NUMBER_CLEAN'</span>].dropna())
+
+orphans = active_fleet - registered
+<span class="code-comment"># Result: 199 confirmed Ghost Aircraft → Ghost_Aircraft_Audit.parquet</span></pre></div>
+
+        <div class="img-card">
+            <img src="assets/05_star_schema_model.png" alt="Fact Constellation Schema — 2 Fact Tables, 3 Dimensions">
+            <div class="img-caption">Fact Constellation Schema · 2 Fact Tables · 3 Dimension Tables · Surrogate Integer Keys</div>
+        </div>
+    </section>
+
+    <!-- DAX MEASURES -->
+    <section class="fade-in">
+        <div class="section-label">Power BI / DAX</div>
+        <h2>DAX Analytical Engine</h2>
+        <p>40+ custom DAX measures power the dashboard. Five that define its analytical depth:</p>
+
+        <table class="dax-table">
+            <thead>
+                <tr>
+                    <th>Measure</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="dax-name">Months to Inflection</span></td>
+                    <td>Predicts months remaining before cumulative MRL accrual burns through the $1.5B strategic reserve, based on current 30-day burn rate. Forward-looking, not rear-view.</td>
+                </tr>
+                <tr>
+                    <td><span class="dax-name">Scatter Color Logic</span></td>
+                    <td>Dynamic DAX color classification driving the Kill Zone. Evaluates <code>[True Total MRL Liability] > [MRL_Budget_Slicer Value]</code> per aircraft, returning #D92525 (red) or #114477 (navy) on every threshold change.</td>
+                </tr>
+                <tr>
+                    <td><span class="dax-name">Controllability Ratio</span></td>
+                    <td>Isolates carrier-controllable delay cost from external (weather, NAS, security) delay cost. Produces the 72.5% accountability figure that drives operational intervention decisions.</td>
+                </tr>
+                <tr>
+                    <td><span class="dax-name">Liability Burn Rate<br>(per flight hour)</span></td>
+                    <td>MRL cost accruing per flight hour for any selected aircraft. Surfaces which assets are degrading fastest relative to their utilization — shown live in the drill-through.</td>
+                </tr>
+                <tr>
+                    <td><span class="dax-name">Fleet Health %</span></td>
+                    <td>Parametric health score: percentage of registered aircraft currently under the MRL threshold. At $900K threshold: <strong>66.2%</strong> — 1 in 3 aircraft in the active fleet is over budget.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- OUTPUT SCHEMA -->
+    <section class="fade-in">
+        <div class="section-label">Pipeline Output</div>
+        <h2>Output Schema</h2>
+        <p>Six SNAPPY-compressed Parquet files exported to <code>/data_processed/</code> from a single pipeline run:</p>
+
+        <table class="schema-table">
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Rows</th>
+                    <th>Cols</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aviation_Fact_Table.parquet</td>
+                    <td>7,079,061</td>
+                    <td>15</td>
+                    <td>Core flight metrics, MRL liability, delay cost</td>
+                </tr>
+                <tr>
+                    <td>Aviation_Fact_Delay_Table.parquet</td>
+                    <td>2,354,307</td>
+                    <td>3</td>
+                    <td>Unpivoted delay cause breakdown (flights with delays only)</td>
+                </tr>
+                <tr>
+                    <td>Aviation_Airlines_Dim.parquet</td>
+                    <td>15</td>
+                    <td>3</td>
+                    <td>Carrier codes and DOT/IATA identifiers</td>
+                </tr>
+                <tr>
+                    <td>Aviation_Geo_Dim.parquet</td>
+                    <td>348</td>
+                    <td>3</td>
+                    <td>Airport codes, cities, and states</td>
+                </tr>
+                <tr>
+                    <td>Master_Dim.parquet</td>
+                    <td>5,913</td>
+                    <td>6</td>
+                    <td>FAA registry: manufacturer, model, type, seats</td>
+                </tr>
+                <tr>
+                    <td>Ghost_Aircraft_Audit.parquet</td>
+                    <td>199</td>
+                    <td>1</td>
+                    <td>Unregistered tail numbers confirmed flying in 2024</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Sample Ghost Aircraft (199 Confirmed)</h3>
+        <div class="ghost-grid">
+            <div class="ghost-tag">N147NK</div>
+            <div class="ghost-tag">N176DN</div>
+            <div class="ghost-tag">N182DN</div>
+            <div class="ghost-tag">N183DN</div>
+            <div class="ghost-tag">N198JB</div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">5 of 199 · Full list in Ghost_Aircraft_Audit.parquet</p>
+    </section>
+
+    <!-- HOW TO RUN -->
+    <section class="fade-in">
+        <div class="section-label">Setup</div>
+        <h2>How to Run</h2>
+        <div class="code-block"><pre><span class="code-comment"># 1. Clone the repository</span>
+git clone https://github.com/MominPathann/US-Aviation-Reliability-Audit.git
+cd US-Aviation-Reliability-Audit
+
+<span class="code-comment"># 2. Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="code-comment"># 3. Place FAA registry files in data_raw/</span>
+<span class="code-comment">#    Download: https://registry.faa.gov/database/ReleasableAircraft.zip</span>
+<span class="code-comment">#    Extract MASTER.txt and ACFTREF.txt into data_raw/</span>
+
+<span class="code-comment"># 4. Run the pipeline</span>
+python main_pipeline.py
+
+<span class="code-comment"># Note: BTS data download is commented out by default.
+# To download 12 months of raw BTS data (~11GB), uncomment:
+# download_and_extract()</span></pre></div>
+    </section>
+
+</div><!-- /.content -->
+</div><!-- /.container -->
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+<footer>
+    <p>
+        <strong>Momin Khan</strong> &nbsp;·&nbsp;
+        Data Analyst | Aviation Reliability &amp; Asset Management &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/mominpathann/" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="https://github.com/MominPathann/US-Aviation-Reliability-Audit" target="_blank">GitHub</a>
+    </p>
+    <p style="margin-top:8px;font-size:0.78rem;opacity:0.5;">Data source: Bureau of Transportation Statistics · FAA Aircraft Registry · FY2024</p>
+</footer>
+
+<script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(el => {
+            if (el.isIntersecting) {
+                el.target.classList.add('visible');
+                observer.unobserve(el.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
