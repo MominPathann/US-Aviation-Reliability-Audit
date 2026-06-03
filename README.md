@@ -360,7 +360,7 @@ us-aviation-reliability-audit-2024/
 ```bash
 # 1. Clone the repository
 git clone https://github.com/MominPathann/US-Aviation-Reliability-Audit.git
-cd us-aviation-reliability-audit-2024
+cd US-Aviation-Reliability-Audit
 
 # 2. Install dependencies
 pip install -r requirements.txt
