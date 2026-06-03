@@ -13,8 +13,8 @@ Airlines and MRO operators routinely make capital allocation decisions based on 
 This project forensically audits **7.07 million BTS flight records** against the FAA Master Registry to answer one question: *what is the actual, verified maintenance liability of the US domestic fleet?*
 
 ### 🔗 Live Access
-- **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiMzFmMDY5Y2MtNjM0NS00OTllLWEzNWYtNGI0NWIzODk4NWJlIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
-- **[⬇️ Download Semantic Model (.pbix — 166MB)](https://drive.google.com/file/d/19wxG6s6Yu3cAIU23FfI_M4V6Df_WePQx/view?usp=sharing)**
+- **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiMGQwODlmZTMtZDhhZC00OTdiLTkwMzEtMzU2NmI1MTIzNGM5IiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
+- **[⬇️ Download Semantic Model (.pbix — 166MB)](https://drive.google.com/file/d/1Jn2ic9zBBKTeIszjdn6WQqqnmo916Mdr/view?usp=drive_link)**
   *(Hosted externally due to GitHub LFS constraints)*
 
 ---
