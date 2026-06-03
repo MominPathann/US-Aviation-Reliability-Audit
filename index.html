@@ -97,17 +97,35 @@
             letter-spacing: 0.01em;
         }
 
-        .author-row {
+        ..author-row {
             display: flex;
             align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 12px;
+            flex-wrap: wrap; 
             margin-bottom: 28px;
             font-size: 0.95rem;
             color: rgba(255,255,255,0.8);
+            max-width: 100%; 
         }
 
-        .author-row span { color: rgba(255,255,255,0.45); }
+        /* * By wrapping the text and its preceding separator in a flex container, 
+         * we force them to move to the next line together if they run out of space.
+         */
+        .author-segment {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap; 
+        }
+
+        .author-row span.separator { 
+            color: rgba(255,255,255,0.45); 
+            user-select: none; 
+        }
+        
+        .author-row strong {
+            white-space: nowrap; /* Keeps "Momin Khan" together */
+        }
 
         .header-links {
             display: flex;
@@ -561,11 +579,17 @@
         <h1>US Aviation Reliability Analysis<br>&amp; Asset Risk Audit</h1>
         <h2>Enterprise Data Engineering &amp; Fleet Liability Forensics</h2>
         <div class="author-row">
-            <strong>Momin Khan</strong>
-            <span>|</span>
-            <span>Data Analyst &amp; Aviation Domain Expert</span>
-            <span>|</span>
-            <span>Python &nbsp;·&nbsp; DuckDB &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; DAX</span>
+            <div class="author-segment">
+                <strong>Momin Khan</strong>
+            </div>
+            <div class="author-segment">
+                <span class="separator">|</span>
+                <span>Data Analyst &amp; Aviation Domain Expert</span>
+            </div>
+            <div class="author-segment">
+                <span class="separator">|</span>
+                <span>Python &nbsp;·&nbsp; DuckDB &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; DAX</span>
+            </div>
         </div>
         <div class="header-links">
             <a href="https://app.powerbi.com/view?r=eyJrIjoiMGQwODlmZTMtZDhhZC00OTdiLTkwMzEtMzU2NmI1MTIzNGM5IiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db" target="_blank" class="link-primary">📊 Live Dashboard</a>
