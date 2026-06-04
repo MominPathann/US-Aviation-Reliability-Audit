@@ -32,7 +32,7 @@ This project forensically audits **7.07 million BTS flight records** against the
 |---|---|
 | Total Maintenance Reserve Liability (MRL) | **$4.59 Billion** |
 | Total Delay Cost | **$8.30 Billion** |
-| Unique Registered Aircraft | **5,911** |
+| Unique Registered Aircraft | **5,913** |
 | Carriers Audited | **15** |
 | Airports in Network | **348** |
 | At-Risk Assets (Kill Zone) | **2,000+** |
