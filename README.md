@@ -21,7 +21,7 @@ This project forensically audits **7.07 million BTS flight records** against the
 
 ### 🔗 Live Access
 - **[📊 Execute Live Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiN2Q0YzU0YjItZDA4Yy00Zjk1LTg2OTMtNWM3ZWE0ZjVlOTgwIiwidCI6ImRjNDliNmQyLTM1ZDQtNDM2Yi04Mzg4LWY1MThkOGRjYzNiZCJ9&pageName=a9e5773f86b8cbbaa4db)**
-- **[⬇️ Download Semantic Model (.pbix — 162MB)](https://drive.google.com/file/d/1Jn2ic9zBBKTeIszjdn6WQqqnmo916Mdr/view?usp=drive_link)**
+- **[⬇️ Download Semantic Model (.pbix — 162MB)](https://drive.google.com/file/d/1OBOk8VpPctKal33RnGjcoctJm-TESzUo/view?usp=drive_link)**
   *(Hosted externally due to GitHub LFS constraints)*
 
 ---
