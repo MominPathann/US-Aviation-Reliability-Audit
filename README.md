@@ -40,8 +40,7 @@ This project forensically audits **7.07 million BTS flight records** against the
 | Phantom Liability Eliminated | **$17.3 Million** |
 | Technical Dispatch Reliability (TDR) | **88.9%** |
 | On-Time Performance (OTP) | **80.3%** |
-| Fleet Health % | **66.2%** |
-| Carrier Delay % of Total | **72.5%** |
+| Carrier Delay % of Total | **34.5%** |
 | Avg Technical Delay | **45.4 min** |
 
 ---
@@ -57,7 +56,7 @@ A parametric MRL threshold slicer re-classifies the entire fleet in real time �
 Any tail number in the Kill Zone can be drilled through to a dedicated asset profile showing: MRL liability, remaining reserve budget, 12-month accrual trend, liability variance vs. fleet average, and OVERHAUL REQUIRED / OPERATIONAL status — computed live via DAX.
 
 **Carrier vs. Uncontrollable Delay Decomposition**
-The dashboard isolates carrier-controllable delays (72.5% of total) from external factors (weather, NAS, security). This is the core financial accountability metric — it tells operators exactly which delays they could have prevented.
+The dashboard isolates carrier-controllable delays (34.5% of total) from external factors (weather, NAS, security). This is the core financial accountability metric — it tells operators exactly which delays they could have prevented.
 
 **Months to Inflection**
 A forward-looking DAX measure that calculates how many months remain before cumulative MRL accrual burns through the strategic reserve — based on current burn rate trends.
@@ -82,7 +81,7 @@ Hovering over any red dot surfaces the aircraft's full operational profile: MRL 
 
 ![Kill Zone Demo](assets/kill_zone_demo.gif)
 
-Moving the risk threshold from $600K to $1.2M reclassifies the entire fleet in under a second. This is not a filter — it is a live DAX parameter changing the color logic, the priority table, and the at-risk count simultaneously across all visuals on the page.
+Moving the risk threshold from $600K to $800K reclassifies the entire fleet in under a second. This is not a filter — it is a live DAX parameter changing the color logic, the priority table, and the at-risk count simultaneously across all visuals on the page.
 
 ### Threshold Shift
 
@@ -118,9 +117,9 @@ These 199 assets were actively accumulating flight hours and cycles with zero of
 
 ---
 
-### 3. Carrier Controllability: 72.5% of Delays Are Preventable
+### 3. Carrier Controllability: 34.5% of Delays Are Preventable
 
-The delay decomposition reveals that **72.5% of all delay minutes are carrier-controllable** — meaning the airline itself is operationally responsible, not weather, ATC, or security. This is the most actionable finding in the dataset. Capital should not be allocated to uncontrollable events.
+The delay decomposition reveals that **34.5% of all delay minutes are carrier-controllable** — meaning the airline itself is operationally responsible, not weather, ATC, or security. This is the most actionable finding in the dataset. Capital should not be allocated to uncontrollable events.
 
 ---
 
@@ -292,7 +291,7 @@ Calculates the MRL cost accruing per flight hour for any selected aircraft. Surf
 Dynamic DAX color classification driving the Kill Zone. Every dot in the scatter evaluates `[True Total MRL Liability] > [MRL_Budget_Slicer Value]` in real time — returning `#D92525` (red) or `#114477` (navy) per aircraft, per threshold change.
 
 **`Controllability Ratio`**
-Isolates carrier-controllable delay cost from external (weather, NAS, security) delay cost. The 72.5% figure comes from this measure — the accountability metric that drives operational intervention decisions.
+Isolates carrier-controllable delay cost from external (weather, NAS, security) delay cost. The 34.5% figure comes from this measure — the accountability metric that drives operational intervention decisions.
 
 **`Fleet Health %`**
 Parametric health score: the percentage of registered aircraft currently under the MRL threshold. At the default $900K threshold, Fleet Health is **66.2%** — meaning 1 in 3 aircraft in the active fleet is over budget.
@@ -323,6 +322,8 @@ Aviation_Fact_Table ──── Reporting_Airline ──── Aviation_Airline
         │
         ├── Tail_Number ────────────────────── Master_Dim
         │
+        ├── Tail_Number ────────────────────── Ghost_Aircraft_Audit
+        │
         └── Origin / Dest ──────────────────── Aviation_Geo_Dim
 ```
 
@@ -350,6 +351,7 @@ us-aviation-reliability-audit-2024/
     ├── 07_kill_zone_tooltip.png          ← Individual aircraft tooltip
     ├── 08_threshold_shift.png            ← Dynamic threshold reclassification
     ├── 09_priority_table.png             ← Maintenance Priority Table
+    ├── 10_overhaul_status.png            ← OverHaul Trigger
     └── kill_zone_demo.gif                ← Live threshold demo
 ```
 
