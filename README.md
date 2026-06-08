@@ -193,7 +193,7 @@ RAW BTS + FAA DATA  (12 monthly ZIPs + MASTER.txt + ACFTREF.txt)
          ▼
 ┌─────────────────────┐
 │   GOLD LAYER        │  6x SNAPPY-compressed Parquet files.
-│   Power BI / DAX    │  Fact Constellation Schema. 40+ DAX measures.
+│   Power BI / DAX    │  Header-Detail Schema. 40+ DAX measures.
 └─────────────────────┘  Dynamic parametric risk simulation.
 ```
 
@@ -311,7 +311,7 @@ Six SNAPPY-compressed Parquet files exported to `/data_processed/`:
 | `Master_Dim.parquet` | 5,913 | 6 | FAA registry: type, manufacturer, model, seats |
 | `Ghost_Aircraft_Audit.parquet` | 199 | 1 | Unregistered tail numbers confirmed flying 2024 |
 
-**Schema: Fact Constellation (2 Fact Tables, 3 Dimension Tables)**
+**Schema: Header-Detail Schema (1 Header Fact Table, 1 Detail Fact Table, 5 Dimension Tables)**
 
 ![Data Model Schema](assets/05_star_schema_model.png)
 
